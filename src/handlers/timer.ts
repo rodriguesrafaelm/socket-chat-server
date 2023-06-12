@@ -1,7 +1,7 @@
 import { Socket } from "socket.io";
 
 export const resetTimer = (socket: Socket, timer: NodeJS.Timeout) => {
-    const connectionExpirationTime = 3 * 1000; // tempo em ms
+    const connectionExpirationTime = 5 * 60 * 1000; // tempo em ms
     clearTimeout(timer);
     timer = setTimeout(() => {
       socket.emit('message', [{username: 'Server', message: 'Desconectado por inatividade'}])
