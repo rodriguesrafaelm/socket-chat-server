@@ -8,9 +8,9 @@ const corsOptions = {
     origin: "localhost"
   }
 const serverPort = 4000;
-const io = require('socket.io')(http, {cors: corsOptions});
+export const io = require('socket.io')(http, {cors: corsOptions});
 
-io.on('connection', handleConnection(io));
+io.on('connection', handleConnection);
 
 http.listen(serverPort, () => {
     console.log('Servidor executando na porta ', serverPort);
