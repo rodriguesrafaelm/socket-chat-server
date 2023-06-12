@@ -12,11 +12,12 @@ export const io = new Server(http, {cors: corsOptions});
 
 io.on('connection', handleConnection);
 
-export const server = (callback: any) => {
-    http.listen(serverPort, () => {
+export const server = (callback: () => void) => {
+    const serverInstance = http.listen(serverPort, () => {
         console.log('Servidor executando na porta ', serverPort);
         if(callback){
         callback()
         }
     })
+    return serverInstance
 }
