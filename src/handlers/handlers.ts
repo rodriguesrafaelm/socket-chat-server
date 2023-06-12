@@ -10,10 +10,6 @@ export const handleConnection = (io: Server) => (socket: Socket) => {
   console.log('Uma conexão foi estabelecida');
   let timer = setTimeout(() => {}, 0);
 
-  const handleDisconnect = () => {
-    console.log('Um usuário saiu.');
-  };
-
   socket.on('message', (content: Message) => {
     handleMessage(content, inMemoryMessages);
     io.emit('message', inMemoryMessages);
