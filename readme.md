@@ -9,6 +9,7 @@ Os clientes recebem as mensagens em tempo real e exibem em seus respectivos chat
 - Node.js
 - TypeScript
 - Socket.IO
+- Express
 ## Configuração do Projeto
 Clone o repositório para sua máquina local.
 Execute o comando npm install para instalar as dependências.
