@@ -1,9 +1,11 @@
 import { Socket } from 'socket.io';
-import { Message } from '../interfaces/Message';
-import { connectedUsers, addNewUser, ConnectedUser, updateUsersList } from '../data/usersList';
+import { connectedUsers, addNewUser, updateUsersList } from '../data/usersList';
 import { resetTimer } from './timer';
-import { pushNewMessage } from '../data/storedMessages';
+import MessageStorage from '../data/storedMessages';
 import {emitCurrentlyConnectedIO, emitPreviousMessagesSocket, emmitUpdateMessages} from './emits'
+
+import { Message } from '../interfaces/Message';
+import { ConnectedUser } from '../interfaces/ConnectedUser';
 
 export const handleConnection = (socket: Socket) => {
   console.log('Uma conexão foi estabelecida');
@@ -26,7 +28,8 @@ export const handleConnection = (socket: Socket) => {
 };
 
 export const handleMessage = (content: Message) => {
-  pushNewMessage(content)
+  console.log(content)
+  MessageStorage.pushNewMessage(content)
   emmitUpdateMessages()
 };
 
@@ -37,7 +40,7 @@ export const handleDisconnect = (socket: Socket) => () => {
   console.log('Um usuário saiu.');
   const userLeaving = socket.handshake.query.username as string;
   const content = { username: "System", message: `${userLeaving} saiu` }
-  pushNewMessage(content);
+  MessageStorage.pushNewMessage(content);
   emmitUpdateMessages()
   socket.disconnect();
 };
