@@ -1,7 +1,7 @@
 import { Message } from "../interfaces/Message";
 
 class MessageStorage {
-    messages: Message[];
+    private messages: Message[];
     constructor(){
         this.messages = [];
     }
