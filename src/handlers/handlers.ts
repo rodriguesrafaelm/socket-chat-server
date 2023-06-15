@@ -2,17 +2,8 @@ import { Socket } from 'socket.io';
 import { Message } from '../interfaces/Message';
 import { connectedUsers, addNewUser, ConnectedUser, updateUsersList } from '../data/usersList';
 import { resetTimer } from './timer';
-import { io } from '../server';
-import { inMemoryMessages, pushNewMessage } from '../data/storedMessages';
-
-
-const emitPreviousMessagesSocket = (socket: Socket) => {
-  socket.emit('previousMessages', inMemoryMessages);
-};
-
-const emitCurrentlyConnectedIO = () => {
-  io.emit('userList', connectedUsers);
-};
+import { pushNewMessage } from '../data/storedMessages';
+import {emitCurrentlyConnectedIO, emitPreviousMessagesSocket, emmitUpdateMessages} from './emits'
 
 export const handleConnection = (socket: Socket) => {
   console.log('Uma conexão foi estabelecida');
@@ -36,13 +27,17 @@ export const handleConnection = (socket: Socket) => {
 
 export const handleMessage = (content: Message) => {
   pushNewMessage(content)
-  io.emit('message', inMemoryMessages);
+  emmitUpdateMessages()
 };
 
 export const handleDisconnect = (socket: Socket) => () => {
-  console.log('Um usuário saiu.');
   const newUsersList = connectedUsers.filter((user) => user.id !== socket.id);
   updateUsersList(newUsersList);
   emitCurrentlyConnectedIO();
+  console.log('Um usuário saiu.');
+  const userLeaving = socket.handshake.query.username as string;
+  const content = { username: "System", message: `${userLeaving} saiu` }
+  pushNewMessage(content);
+  emmitUpdateMessages()
   socket.disconnect();
 };
