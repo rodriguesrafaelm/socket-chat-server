@@ -1,18 +1,13 @@
-import express from 'express'
-import { handleConnection } from "./socket/handlers/handlers";
-import { Server } from 'socket.io';
-import "./config/config"
-const app = express();
-const http = require('http').createServer(app);
+import express, {Express} from 'express';
+import "./config/config";
+import {Server as HttpServerInterface} from 'node:http';
+import { configureSocket } from './config/socketConfig';
 
-
-const corsOptions = {
-    origin: process.env.SERVERURL
-  }
+const app: Express = express();
+const http: HttpServerInterface = require('http').createServer(app);
 const serverPort = process.env.PORT;
-export const io = new Server(http, {cors: corsOptions});
 
-io.on('connection', handleConnection);
+export const io = configureSocket(http)
 
 export const server = () => {
     const serverInstance = http.listen(serverPort, () => {
