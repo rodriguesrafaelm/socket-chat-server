@@ -1,10 +1,10 @@
 import { Socket } from 'socket.io';
-import UsersList from "../data/UsersList";
+import UsersList from "../../data/UsersList";
 import { resetTimer } from './timer';
-import MessageStorage from '../data/StoredMessages';
+import MessageStorage from '../../data/StoredMessages';
 import {emitCurrentlyConnectedIO, emitPreviousMessagesSocket, emmitUpdateMessages} from './emits'
-import { Message } from '../interfaces/Message';
-import { ConnectedUser } from '../interfaces/ConnectedUser';
+import { Message } from '../../interfaces/Message';
+import { ConnectedUser } from '../../interfaces/ConnectedUser';
 import { addSocketEvents } from '../events/events';
 
 export const handleConnection = (socket: Socket) => {

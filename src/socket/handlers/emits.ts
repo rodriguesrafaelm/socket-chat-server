@@ -1,7 +1,7 @@
-import MessageStorage from "../data/StoredMessages";
-import UsersList from "../data/UsersList";
+import MessageStorage from "../../data/StoredMessages";
+import UsersList from "../../data/UsersList";
 import { Socket } from "socket.io";
-import { io } from '../server';
+import { io } from '../../server';
 
 
 export const emitPreviousMessagesSocket = (socket: Socket) => {
