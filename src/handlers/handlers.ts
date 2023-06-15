@@ -1,5 +1,5 @@
 import { Socket } from 'socket.io';
-import { connectedUsers, addNewUser, updateUsersList } from '../data/usersList';
+import UsersList from "../data/usersList";
 import { resetTimer } from './timer';
 import MessageStorage from '../data/storedMessages';
 import {emitCurrentlyConnectedIO, emitPreviousMessagesSocket, emmitUpdateMessages} from './emits'
@@ -16,10 +16,10 @@ export const handleConnection = (socket: Socket) => {
     id: socket.id,
     username: username
   };
-  addNewUser(connectedUser);
+  UsersList.addNewUser(connectedUser);
   emitPreviousMessagesSocket(socket);
   emitCurrentlyConnectedIO();
-  console.log("usuários conectados", connectedUsers);
+  console.log("usuários conectados", UsersList.getAllConnectedUsers);
   socket.on('message', (content: Message) => {
     handleMessage(content);
     timer = resetTimer(socket, timer);
@@ -34,8 +34,7 @@ export const handleMessage = (content: Message) => {
 };
 
 export const handleDisconnect = (socket: Socket) => () => {
-  const newUsersList = connectedUsers.filter((user) => user.id !== socket.id);
-  updateUsersList(newUsersList);
+  UsersList.removeUserBySocketId(socket.id)
   emitCurrentlyConnectedIO();
   console.log('Um usuário saiu.');
   const userLeaving = socket.handshake.query.username as string;

@@ -1,14 +1,27 @@
-export interface ConnectedUser {
-    id: string;
-    username: string;
+import { ConnectedUser } from "../interfaces/ConnectedUser";
+
+class UsersList {
+  private connectedUsers: ConnectedUser[] = []
+  constructor() {
+    this.connectedUsers = [];
   }
   
-export let connectedUsers: ConnectedUser[] = [];
+  addNewUser = (user: ConnectedUser) => {
+    this.connectedUsers.push(user)
+  }
 
-export const updateUsersList = (users: ConnectedUser[]) => {
-    connectedUsers = users
+  updateUsersList = (users: ConnectedUser[]) => {
+    this.connectedUsers = users
+  }
+
+  getAllConnectedUsers(){
+    return this.connectedUsers
+  }
+
+  removeUserBySocketId(socketId: string){
+    const newList = this.connectedUsers.filter((user) => user.id !== socketId);
+    this.updateUsersList(newList);
+  }
 }
 
-export const addNewUser = (user: ConnectedUser) => {
-    connectedUsers.push(user)
-}
+export default new UsersList;
