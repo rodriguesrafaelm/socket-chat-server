@@ -23,7 +23,6 @@ export const handleConnection = (socket: Socket) => {
 };
 
 export const handleMessage = (content: Message) => {
-  console.log(content);
   MessageStorage.pushNewMessage(content);
   emmitUpdateMessages();
 };
