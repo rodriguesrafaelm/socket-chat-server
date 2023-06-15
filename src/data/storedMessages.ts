@@ -8,8 +8,11 @@ class MessageStorage {
     pushNewMessage = (message: Message) =>{
         this.messages.push(message);
     }
-    getMessages = () => {
+    getAllMessages = () => {
         return this.messages
+    }
+    clearMessages = () => {
+      this.messages = [];
     }
 }
 export default new MessageStorage;
