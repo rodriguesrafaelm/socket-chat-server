@@ -19,7 +19,7 @@ export const handleConnection = (socket: Socket) => {
   UsersList.addNewUser(connectedUser);
   emitPreviousMessagesSocket(socket);
   emitCurrentlyConnectedIO();
-  console.log("usuários conectados", UsersList.getAllConnectedUsers);
+  console.log("usuários conectados", UsersList.getAllConnectedUsers());
   socket.on('message', (content: Message) => {
     handleMessage(content);
     timer = resetTimer(socket, timer);
