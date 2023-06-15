@@ -1,7 +1,7 @@
 import { Socket } from 'socket.io';
-import UsersList from "../data/usersList";
+import UsersList from "../data/UsersList";
 import { resetTimer } from './timer';
-import MessageStorage from '../data/storedMessages';
+import MessageStorage from '../data/StoredMessages';
 import {emitCurrentlyConnectedIO, emitPreviousMessagesSocket, emmitUpdateMessages} from './emits'
 
 import { Message } from '../interfaces/Message';

@@ -1,5 +1,5 @@
-import MessageStorage from "../data/storedMessages";
-import UsersList from "../data/usersList";
+import MessageStorage from "../data/StoredMessages";
+import UsersList from "../data/UsersList";
 import { Socket } from "socket.io";
 import { io } from '../server';
 
