@@ -6,7 +6,7 @@ export const resetTimer = (socket: Socket, timer: NodeJS.Timeout) => {
     return setTimeout(() => {
       socket.emit('timeoutError')
       socket.disconnect();
-      console.log(`Cliente com o id: ${socket.id} foi desconectado por tempo de inatividade`)
+      console.log(`Cliente com o id ${socket.id} foi terminada por inatividade.`)
     
     }, connectionExpirationTime)
   } 
